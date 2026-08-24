@@ -21,8 +21,8 @@ class Captura(Base):
     # Chaves estrangeiras (como strings - sem importar os models dos colegas)
     # ForeignKey liga uma captura ao treinador e ao Pokemon.
     treinador_id = Column(Integer, ForeignKey("usuarios.id"), nullable=False)
-    pokemon_id = Column(Integer, ForeignKey("pokemon.id"), nullable=False)
+    pokemon_id = Column(Integer, ForeignKey("pokemons.id"), nullable=False)
 
     # Relacionamentos (quando os models dos colegas existirem)
-    # treinador = relationship("Usuario", back_populates="capturas")
-    # pokemon = relationship("Pokemon", back_populates="capturas")
+    treinador = relationship("Usuario") #, back_populates="capturas")
+    pokemon = relationship("Pokemon")#, back_populates="capturas")

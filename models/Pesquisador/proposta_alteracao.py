@@ -3,6 +3,8 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 from database import Base
 
+from models.treinador.pokemon import Pokemon
+
 class PropostaAlteracao(Base):
     __tablename__ = "propostas_alteracao"
 
@@ -17,4 +19,4 @@ class PropostaAlteracao(Base):
     data_criacao = Column(DateTime, default=datetime.utcnow)
 
     pesquisador = relationship("Usuario")
-    pokemon = relationship("Pokemon")
+    pokemon = relationship(Pokemon)
