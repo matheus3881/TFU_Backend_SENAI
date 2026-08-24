@@ -1,3 +1,5 @@
+# Este arquivo concentra a configuracao da conexao com o banco.
+
 from typing import Annotated
 from fastapi import Depends
 from sqlalchemy import create_engine
@@ -19,3 +21,4 @@ def get_db():
         session.close()
 
 SessionDep = Annotated[Session, Depends(get_db)]
+
