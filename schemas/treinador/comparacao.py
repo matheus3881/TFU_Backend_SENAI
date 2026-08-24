@@ -14,6 +14,8 @@ class CompararPokemon(BaseModel):
         max_length=4
     )
 
+    # A validacao do schema acontece automaticamente no recebimento da rota.
+
     @field_validator("pokemon_ids")
     @classmethod
     def validar_ids(cls, ids):

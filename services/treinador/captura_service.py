@@ -6,6 +6,8 @@ from models.treinador.captura import Captura
 from schemas.treinador.captura import CriarCaptura, CapturaResposta
 
 # Regras de negocio para registrar e consultar capturas.
+# Este modulo fica entre o router e o model: recebe dados ja validados,
+# aplica regras e usa o banco para persistir ou buscar informacoes.
 
 class CapturaService:
     """
@@ -48,6 +50,7 @@ def registrar_captura(treinador_id: int, dados: CriarCaptura):
     # Por enquanto, assume que o Pokemon existe
     # Depois você substitui pela verificação real
     
+    # Criamos um objeto do model usando os dados do schema.
     captura = Captura(
         pokemon_id=dados.pokemon_id,
         local=dados.local,
@@ -56,8 +59,10 @@ def registrar_captura(treinador_id: int, dados: CriarCaptura):
         data_captura=date.today()
     )
     
+    # A sessao e aberta somente durante esta operacao.
     db = SessionLocal()
     try:
+        # add prepara o objeto, commit salva e refresh atualiza o id gerado.
         db.add(captura)
         db.commit()
         db.refresh(captura)
@@ -67,6 +72,7 @@ def registrar_captura(treinador_id: int, dados: CriarCaptura):
 
 def listar_capturas_do_treinador(treinador_id: int):
     """Retorna somente as capturas pertencentes ao treinador informado."""
+    # A consulta filtra pelo treinador para respeitar a propriedade dos dados.
     db = SessionLocal()
     try:
         return db.query(Captura).filter(Captura.treinador_id == treinador_id).all()

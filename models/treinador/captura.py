@@ -12,12 +12,14 @@ class Captura(Base):
     __tablename__ = "capturas"
 
     # Campos obrigatórios
+    # Cada atributo abaixo representa uma coluna da tabela capturas.
     id = Column(Integer, primary_key=True, index=True)
     data_captura = Column(Date, nullable=False)
     local = Column(String(100), nullable=True)  # opcional
     nivel = Column(Integer, nullable=False)
 
     # Chaves estrangeiras (como strings - sem importar os models dos colegas)
+    # ForeignKey liga uma captura ao treinador e ao Pokemon.
     treinador_id = Column(Integer, ForeignKey("usuarios.id"), nullable=False)
     pokemon_id = Column(Integer, ForeignKey("pokemon.id"), nullable=False)
 

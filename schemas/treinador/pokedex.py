@@ -30,3 +30,5 @@ class PokedexResposta(BaseModel):
     total_shiny: int = Field(ge=0)
 
     pokemons: list[EntradaPokedex]
+
+# O service monta este formato depois de buscar as capturas do treinador.

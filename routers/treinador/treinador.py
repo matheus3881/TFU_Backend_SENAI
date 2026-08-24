@@ -5,6 +5,8 @@ from schemas.treinador.captura import CriarCaptura, CapturaResposta
 from services.treinador import captura_service
 
 # Rotas HTTP para operacoes feitas pelo treinador.
+# Este router usa Depends para obter o usuario atual. No projeto real,
+# get_current_user_mock sera trocado pela dependencia de autenticacao.
 
 router = APIRouter(prefix="/treinador", tags=["Treinador"])
 
@@ -24,6 +26,8 @@ def registrar_captura(
     usuario=Depends(get_current_user_mock)  # ← MOCK
 ):
     try:
+        # O router encaminha os dados para o service.
+        # A regra de negocio e a gravacao ficam fora desta camada.
         return captura_service.registrar_captura(usuario.id, dados)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
@@ -32,6 +36,7 @@ def registrar_captura(
 def listar_minhas_capturas(
     usuario=Depends(get_current_user_mock)  # ← MOCK
 ):
+    # O id do usuario evita que um treinador veja capturas de outro.
     return captura_service.listar_capturas_do_treinador(usuario.id)
 
 @router.get("/")

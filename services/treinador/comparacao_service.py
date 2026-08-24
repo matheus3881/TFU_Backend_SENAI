@@ -7,6 +7,12 @@ class ComparacaoService:
 
     A consulta dos Pokémon será integrada posteriormente
     com o Model Pokemon do colega responsável.
+
+    Exemplo de uso em um router:
+    1. O router recebe CompararPokemon.
+    2. Chama validar_quantidade(dados.pokemon_ids).
+    3. Busca os Pokémon no banco ou em um servico externo.
+    4. Compara os dados e devolve um schema de resposta.
     """
 
     @staticmethod

@@ -12,6 +12,11 @@ class PokedexService:
 
     A busca das capturas será implementada quando
     o banco e os Models estiverem integrados.
+
+    Exemplo de integracao:
+    o router busca as capturas do treinador e envia a lista para
+    calcular_total_capturado e calcular_total_shiny. Depois, monta
+    o objeto PokedexResposta para devolver ao cliente.
     """
 
     @staticmethod
