@@ -10,4 +10,4 @@ class LogAuditoria(Base):
     id = Column(Integer, primary_key=True, index=True)
     acao = Column(String, nullable=False)          # Ex: "Remover Registro"
     usuario = Column(String, nullable=False)       # Ex: "admin"
-    data = Column(DateTime, default=datetime.utcnow)
+    data = Column(DateTime, default=lambda: datetime.now())

@@ -7,7 +7,7 @@ def registrar_acao(db: Session, acao: str, usuario: str):
     log = LogAuditoria(
         acao=acao,
         usuario=usuario,
-        data=datetime.utcnow()
+        data=datetime.now()
     )
     db.add(log)
     db.commit()
