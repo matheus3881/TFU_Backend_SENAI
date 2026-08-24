@@ -1,13 +1,26 @@
-from sqlalchemy import Column, Integer, String, DateTime
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import ForeignKey, DateTime
 from datetime import datetime
+from database import Base
 
-Base = declarative_base()
+
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 
 class LogAuditoria(Base):
-    _tablename_ = "log_auditoria"
+    __tablename__ = "log_auditoria"
 
-    id = Column(Integer, primary_key=True, index=True)
-    acao = Column(String, nullable=False)          # Ex: "Remover Registro"
-    usuario = Column(String, nullable=False)       # Ex: "admin"
-    data = Column(DateTime, default=lambda: datetime.now())
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    acao: Mapped[str] = mapped_column(nullable=False)          # Ex: "Remover Registro"
+    usuario_id: Mapped[int] = mapped_column(ForeignKey("usuario.id"))  # Ex: "admin"
+    data: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now())
+
+    usuario: Mapped["Usuario"] = relationship(back_populates="logs_auditoria")
+
+
+class Proposta(Base):
+    __tablename__ = "propostas"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    status: Mapped[str] = mapped_column(default="pendente")
+    dadosAntes: Mapped[str] 
+    dadosDepois: Mapped[str]
