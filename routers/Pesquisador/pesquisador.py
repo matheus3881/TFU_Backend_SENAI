@@ -3,15 +3,15 @@ from sqlalchemy.orm import Session
 from typing import List
 
 from database import get_db
-from dependencias import obter_usuario_logado
 
 from schemas.Pesquisador.proposta import PropostaCriacao, PropostaResposta
 from schemas.Pesquisador.pokemon import PokemonCriacao, PokemonResposta
+from schemas.usuario.autenticacao import UsuarioAtual
 from services.Pesquisador import proposta_service, pesquisador_service
 
 router = APIRouter(prefix="/pesquisador", tags=["Pesquisador"])
 
-def verificar_pesquisador(usuario = Depends(obter_usuario_logado)):
+def verificar_pesquisador(usuario = UsuarioAtual):
     if getattr(usuario, "role", None) != "PESQUISADOR":
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,

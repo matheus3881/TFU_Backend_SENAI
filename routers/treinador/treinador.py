@@ -2,6 +2,7 @@
 
 from fastapi import APIRouter, Depends, HTTPException
 from schemas.treinador.captura import CriarCaptura, CapturaResposta
+from schemas.usuario.autenticacao import UsuarioAtual
 from services.treinador import captura_service
 
 # Rotas HTTP para operacoes feitas pelo treinador.
@@ -23,7 +24,7 @@ async def get_current_user_mock():
 @router.post("/capturas", response_model=CapturaResposta)
 def registrar_captura(
     dados: CriarCaptura,
-    usuario=Depends(get_current_user_mock)  # ← MOCK
+    usuario=UsuarioAtual  # ← MOCK
 ):
     try:
         # O router encaminha os dados para o service.
@@ -34,7 +35,7 @@ def registrar_captura(
 
 @router.get("/capturas", response_model=list[CapturaResposta])
 def listar_minhas_capturas(
-    usuario=Depends(get_current_user_mock)  # ← MOCK
+    usuario=UsuarioAtual  # ← MOCK
 ):
     # O id do usuario evita que um treinador veja capturas de outro.
     return captura_service.listar_capturas_do_treinador(usuario.id)
