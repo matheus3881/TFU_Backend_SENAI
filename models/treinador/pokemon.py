@@ -1,6 +1,6 @@
 from database import Base
 
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 
 
@@ -14,6 +14,8 @@ class Pokemon(Base):
     defesa: Mapped[int]
     velocidade: Mapped[int]
     imagem: Mapped[str]
+
+    propostas_alteracao: Mapped[list["PropostaAlteracao"]] = relationship(back_populates="pokemon") # type: ignore
 
 
     def getAtributosCombate(self):

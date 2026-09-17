@@ -10,4 +10,6 @@ class Usuario(Base):
     hashed_senha: Mapped[str]
     papel: Mapped[str] = mapped_column(default="Comum")
 
+    logs_auditoria: Mapped[list["LogAuditoria"]] = relationship(back_populates="usuario_id") # type: ignore
+    propostas_alteracao: Mapped[list["PropostaAlteracao"]] = relationship(back_populates="usuario") # type: ignore
     
