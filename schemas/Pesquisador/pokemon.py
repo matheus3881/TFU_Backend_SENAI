@@ -18,4 +18,4 @@ class PokemonResposta(PokemonBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attibutes = True

@@ -15,7 +15,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
-print(f"SECRET_KEY = {repr(SECRET_KEY)}") 
 ALGORITHM  = "HS256"
 
 

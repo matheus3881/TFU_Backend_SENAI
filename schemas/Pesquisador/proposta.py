@@ -17,5 +17,5 @@ class PropostaResposta(PropostaBase):
     status: str
     data_criacao: datetime
 
-    class Config:
-        orm_mode = True
+class Config:
+    from_attributes = True
